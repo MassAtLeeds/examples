@@ -8,10 +8,12 @@
 
         <!-- Other stles to define the map -->
         <style type="text/css">
-            #map {height: 180px;}
+            #map {height: 600px; width: 800px;}
         </style>
         
     </head>
+
+
 
     <h1>Example of leaflet map</h2>
 
@@ -20,5 +22,32 @@
     <div id="map"></div>
 
     <p>This is the end of the page</p>
+
+
+    <!-- HEre is the code to control the map (has to be after the div -->
+
+    <script>
+        // Set up map, centre on london and zoom '13'
+        var map = L.map('map').setView([51.505, -0.09], 15);
+
+
+        /*L.tileLayer('http://{s}.tile.cloudmade.com/API-key/997/256/{z}/{x}/{y}.png', {
+            attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
+            maxZoom: 18
+        }).addTo(map);*/
+
+        // create an OSM tile layer with correct attribution
+        // (see http://switch2osm.org/using-tiles/getting-started-with-leaflet/ )
+        var osmUrl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+        var osmAttrib='Map data © OpenStreetMap contributors';
+        var osm = new L.TileLayer(
+            osmUrl,
+            {minZoom: 5, maxZoom: 20, attribution: osmAttrib}
+            );		
+
+        map.addLayer(osm);
+        initmap();
+
+    </script>
 
 </html>
