@@ -21,7 +21,7 @@
     <body>
         <!-- <body onload="loadJson();"> -->
 
-        <h1>Example of leaflet map</h1>
+        <h1>Example of leaflet map - Tweets in Leeds</h1>
 
         <p>The map should go under here</p>
 
@@ -35,33 +35,34 @@
         <script>
             // A function to read json files (on the server) and return a list of geojson objects
             // that can be displayed directly
-            var points = "START";
             function loadJson() {
                 window.alert("Loading JSON file");
-                $(document).ready(
-                    function() {
+                //$(document).ready(
+                 //   function() {
                         // Use getJSON function (basically a wrapper for ajax)
                         // http://api.jquery.com/jQuery.getJSON/
+                        // This is synchronous so will not return immediately
                         $.getJSON('data/crime.geojson', function(data) {
-                            console.log("json data:");
-                            console.log(data);
-                            points = "TEST";
+                            //console.log("DATA.FEATURES:"+data.features);
+                            // Add features to the map (cture 
+                            $.each(data.features, function(key, feature) {
+                                //console.log("KEY"+key+" FEATURE "+feature);
+                                L.geoJson(feature).addTo(map);
+                            });
 
                         });
-                    }
-                );
+                   // }
+                //);
             }
             loadJson();
 
-            console.log("AFTER: "+points);
-
-            $(document).ready( function() {
-                console.log("FINAL: "+points);
-            });
 
 
             // Set up map, centre on london and zoom '13'
-            var map = L.map('map').setView([51.505, -0.09], 15);
+            //var map = L.map('map').setView([51.505, -0.09], 15);
+
+            // Set up map, centre on Leeds and zoom '13'
+            var map = L.map('map').setView([53.8077, -1.5564], 13);
 
 
             /*L.tileLayer('http://{s}.tile.cloudmade.com/API-key/997/256/{z}/{x}/{y}.png', {
