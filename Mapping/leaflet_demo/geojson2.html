@@ -1,0 +1,87 @@
+<html>
+
+    <head>
+        <!-- leaflet styles -->
+        <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" />
+        <!-- leaflet javascript code -->
+        <script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js"></script>
+        <!-- leaflet plugin to load geojson -->
+        <script type="text/javascript" src="https://raw.github.com/calvinmetcalf/leaflet-ajax/master/dist/leaflet.ajax.min.js"></script>
+
+        <!-- Other stles to define the map -->
+        <style type="text/css">
+            #map {height: 600px; width: 800px;}
+        </style>
+
+
+    </head>
+
+
+    <body>
+
+        <h1>Example of leaflet map - Crimes in Leeds</h1>
+
+        <p>The map should go under here</p>
+
+        <div id="map"></div>
+
+        <p>This is the end of the page</p>
+
+
+        <!-- HEre is the code to control the map (has to be after the div) -->
+
+        <script>
+
+            // Set up map, centre on Leeds and zoom '13'
+            var map = L.map('map').setView([53.8077, -1.5564], 13);
+
+
+            /*L.tileLayer('http://{s}.tile.cloudmade.com/API-key/997/256/{z}/{x}/{y}.png', {
+                attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
+                maxZoom: 18
+            }).addTo(map);*/
+
+            // create an OSM tile layer with correct attribution
+            // (see http://switch2osm.org/using-tiles/getting-started-with-leaflet/ )
+            var osmUrl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+            var osmAttrib='Map data © OpenStreetMap contributors';
+            var osm = new L.TileLayer(
+                osmUrl,
+                {minZoom: 5, maxZoom: 20, attribution: osmAttrib}
+                );
+
+            map.addLayer(osm);
+
+            // Add a popup on mouse click location
+            var popup = L.popup();
+            function onMapClick(e) { // onMapClick captures mouse events
+            popup.setLatLng(e.latlng)
+                    .setContent("You clicked the map at " + e.latlng.toString())
+                    .openOn(map); // openOn automatically closes old popups
+            }
+            map.on('click', onMapClick);
+
+
+            // Load geojson data (wrapper for some ajax)
+            var jsonTest = new L.GeoJSON.AJAX(
+                    "http://nickmalleson.co.uk/a/test-routes.geojson",
+                    //"https://raw.github.com/MassAtLeeds/RouteFactor/master/test-routes.geojson",
+                    {
+                        //onEachFeature:popUp,
+                        dataType:"jsonp"
+                    }
+                );
+            console.log(jsonTest);
+            console.log(jsonTest.getLayer());
+            console.log(jsonTest.hasLayer());
+            //map.addLayer(jsonTest);
+            jsonTest.addTo(map);
+
+
+
+
+        </script>
+
+    </body>
+
+</html>
