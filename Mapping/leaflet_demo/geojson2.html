@@ -63,11 +63,18 @@
 
 
             // Load geojson data (wrapper for some ajax)
+
+            // Get local data:
+            // var jsonTest = new L.GeoJSON.AJAX("./data/crime.geojson" ,{ local:true } );
+
+            // Get remote data
             var jsonTest = new L.GeoJSON.AJAX(
-                    "http://nickmalleson.co.uk/a/test-routes.geojson",
-                    //"https://raw.github.com/MassAtLeeds/RouteFactor/master/test-routes.geojson",
-                    {
-                        //onEachFeature:popUp,
+                    "http://nickmalleson.co.uk/a/crime.sample.geojson"
+                    //"https://raw.github.com/calvinmetcalf/leaflet-ajax/master/example/colleges.geojson"
+                    //"http://nickmalleson.co.uk/a/crime.sample.geojson"
+                    //"https://raw.github.com/MassAtLeeds/RouteFactor/master/test-routes.geojson"
+                    ,{
+                    //    onEachFeature:popUp,
                         dataType:"jsonp"
                     }
                 );
