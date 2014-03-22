@@ -1,5 +1,5 @@
 <!--JSON-P mapping from GitHub-->
-<!--Andy Evans: http://www.geog.leeds.ac.uk/people/a.evans/-->
+<!--Contact for info: Andy Evans: http://www.geog.leeds.ac.uk/people/a.evans/-->
 
 <HTML>
 <HEAD>
@@ -52,8 +52,8 @@
 		// alert suppressed -- does seem enacted with GitHub JSON. 
 		//if (base64test.exec(input)) {
 		//	alert("There were invalid base64 characters in the input text.\n" +
-        //      "Valid base64 characters are A-Z, a-z, 0-9, '+', '/',and '='\n" +
-        //      "Expect errors in decoding.");
+        	//      "Valid base64 characters are A-Z, a-z, 0-9, '+', '/',and '='\n" +
+        	//      "Expect errors in decoding.");
 		//}
 		
 		input = input.replace(/[^A-Za-z0-9\+\/\=]/g, "");
@@ -132,7 +132,7 @@
     <SCRIPT>
 
 	
-		// Set up map, centre on Leeds and zoom '13'.
+	// Set up map, centre on Leeds and zoom '13'.
         var map = L.map('map').setView([53.8077, -1.5564], 13);
 
 		
@@ -169,12 +169,12 @@
 		
 		
         // Add GeoJSON data.
-		var obj = $.parseJSON(jsonText);
+	var obj = $.parseJSON(jsonText);
 		
-		$.each(obj.features, function(key, feature) {
-            L.geoJson(feature, {
-				onEachFeature: onEachFeature
-			}).addTo(map);
+	$.each(obj.features, function(key, feature) {
+            	L.geoJson(feature, {
+			onEachFeature: onEachFeature
+		}).addTo(map);
         });
 		
 
