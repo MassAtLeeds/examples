@@ -24,7 +24,7 @@
 	function getData(response) {
 		var data = response.data.content;
 		jsonText = decode64(data);
-		console.log(jsonText);
+		//console.log(jsonText);
 	}
 
 
@@ -157,14 +157,14 @@
         map.on('click', onMapClick);
 
 		
-		// Add a popup for mouse click on GeoJSON features.
-		// Function called for each feature when added, below.
-		function onEachFeature(feature, layer) {
-			// Note, property names are case sensitive.
-			if (feature.properties && (feature.properties.Person || feature.properties.Place)) {
-				layer.bindPopup(feature.properties.Person + " " + feature.properties.Place);
-			}
+	// Add a popup for mouse click on GeoJSON features.
+	// Function called for each feature when added, below.
+	function onEachFeature(feature, layer) {
+		// Note, property names are case sensitive.
+		if (feature.properties && (feature.properties.Person || feature.properties.Place)) {
+			layer.bindPopup(feature.properties.Person + " " + feature.properties.Place);
 		}
+	}
 		
 		
 		
