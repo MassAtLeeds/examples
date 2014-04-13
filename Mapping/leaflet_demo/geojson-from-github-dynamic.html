@@ -152,7 +152,7 @@
 			window.clearInterval(myVar);
 			myVar=setInterval(function(){check()}, 3600000 / rate);
 		}
-				//alert(req.getAllResponseHeaders());
+		//alert(req.getAllResponseHeaders());
 		return req
 	
 	}
@@ -163,8 +163,18 @@
 	function check() {
 
 		http = getHTTP();
+		//alert(http.status);
 		if (http.status != "304") {
+		
+			// Dynamically inject a script, the source of which is the JSON-P.
+			addScript();
+			
 			addFeatures();
+			
+			// Dynamically remove the script, the source of which is the JSON-P.
+			// Just to clean up, should we have many changes.
+			removeScript();
+			
 		} 
 		
 	}
@@ -179,7 +189,6 @@
 	// Removes all current JSON layers, then refreshes from the 
 	// dataset again.
 	function addFeatures() {
-
 
 		for (i = 0; i < layers.length; i++) {
 			map.removeLayer(layers[i]);
@@ -202,6 +211,30 @@
 		}
 		
 	}
+	
+	
+	// Dynamically inject a script, the source of which is the JSON-P.
+	function addScript () {
+	
+		var script = document.createElement('SCRIPT');
+		script.type = 'text/javascript';
+		script.async = false;
+		script.src = 'https://api.github.com/repos/MassAtLeeds/RouteFactor/contents/test-routes.geojson?callback=getData';
+		var firstScript = document.getElementsByTagName('script')[0]; 
+		firstScript.parentNode.insertBefore(script, firstScript);
+	
+	}
+	
+	
+	// Dynamically remove the script, the source of which is the JSON-P.
+	function removeScript () {
+	
+		var firstScript = document.getElementsByTagName('SCRIPT')[0]; 
+		firstScript.parentNode.removeChild(firstScript);
+
+	}
+	
+	
 
 </SCRIPT>
 
